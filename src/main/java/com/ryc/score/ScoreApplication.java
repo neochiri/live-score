@@ -1,7 +1,9 @@
 package com.ryc.score;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 public class ScoreApplication {
@@ -10,4 +12,8 @@ public class ScoreApplication {
 		SpringApplication.run(ScoreApplication.class, args);
 	}
 
+	@Bean
+	public ModelMapper modelMapper() {
+		return new ModelMapper();
+	}
 }
