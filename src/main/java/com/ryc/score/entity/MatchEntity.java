@@ -18,6 +18,7 @@ public class MatchEntity {
     private String homeTeam;
     @Column(nullable = false)
     private String awayTeam;
+    private String status;
     private Timestamp startTime;
     private Timestamp endTime;
     @OneToOne(mappedBy = "match")
