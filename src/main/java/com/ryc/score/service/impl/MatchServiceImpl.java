@@ -25,9 +25,7 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public Match updateStatusMatch(String matchId, String matchStatus) {
         MatchEntity matchEntityFound = matchRepository.getOne(UUID.fromString(matchId));
-        if(Objects.isNull(matchEntityFound)){
-            throw new RuntimeException("The match does not exist");
-        }
+        checkExistingMatch(matchEntityFound);
         matchEntityFound.setStatus(MatchStatus.valueOf(matchStatus).getValue());
         MatchEntity matchEntityUpdated = matchRepository.save(matchEntityFound);
         Match matchUpdated = matchMapper.entityToModel(matchEntityUpdated);
@@ -37,7 +35,14 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public void finishMatch(String matchId) {
         MatchEntity matchEntityFound = matchRepository.getOne(UUID.fromString(matchId));
+        checkExistingMatch(matchEntityFound);
         matchEntityFound.setStatus("FINISHED");
         matchRepository.save(matchEntityFound);
+    }
+
+    private void checkExistingMatch(MatchEntity matchEntityFound){
+        if(Objects.isNull(matchEntityFound)){
+            throw new RuntimeException("The match does not exist");
+        }
     }
 }
