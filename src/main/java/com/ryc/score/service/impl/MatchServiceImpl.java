@@ -8,6 +8,7 @@ import com.ryc.score.repository.MatchRepository;
 import com.ryc.score.service.iface.MatchService;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -24,9 +25,17 @@ public class MatchServiceImpl implements MatchService {
     @Override
     public Match updateStatusMatch(String matchId, String matchStatus) {
         MatchEntity matchEntityFound = matchRepository.getOne(UUID.fromString(matchId));
+        if(Objects.isNull(matchEntityFound)){
+            throw new RuntimeException("The match does not exist");
+        }
         matchEntityFound.setStatus(MatchStatus.valueOf(matchStatus).getValue());
         MatchEntity matchEntityUpdated = matchRepository.save(matchEntityFound);
         Match matchUpdated = matchMapper.entityToModel(matchEntityUpdated);
         return matchUpdated;
+    }
+
+    @Override
+    public void finishMatch(String matchId) {
+
     }
 }
