@@ -1,15 +1,14 @@
 package com.ryc.score;
 
 import com.ryc.score.model.Match;
+import com.ryc.score.model.Score;
 import com.ryc.score.service.iface.MatchService;
 import com.ryc.score.service.iface.ScoreService;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,5 +28,11 @@ public class MatchController {
     public ResponseEntity<List<Match>> getAllMatches(){
         List<Match> matches = matchService.getAllMatches();
         return new ResponseEntity<>(matches, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/{matchId}/{matchStatus}")
+    public ResponseEntity<Match> updateStatusMatch(@PathVariable String matchId, @PathVariable String matchStatus){
+        Match match = matchService.updateStatusMatch(matchId, matchStatus);
+        return new ResponseEntity<>(match, new HttpHeaders(), HttpStatus.OK);
     }
 }
