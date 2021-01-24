@@ -76,4 +76,18 @@ public class ScoreServiceTests {
 
         assertEquals(exception.getMessage(), "The match does not exist");
     }
+
+    @Test
+    public void testUpdateScoreNotExisting(){
+        String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
+        Score scoreToUpdate = (Score) UtilsTest.getObjectFromJsonFile(SCORE_MODEL_JSON, Score.class);
+        MatchEntity matchEntityFound = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
+
+        when(matchRepository.getOne(Mockito.any(UUID.class))).thenReturn(matchEntityFound);
+        when(scoreRepository.getOne(Mockito.any(UUID.class))).thenReturn(null);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> scoreService.updateScore(matchId, scoreToUpdate));
+
+        assertEquals(exception.getMessage(), "The score does not exist");
+    }
 }
