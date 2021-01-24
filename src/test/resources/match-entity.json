@@ -1,0 +1,13 @@
+{
+  "id" : "95b590b0-8b2e-4552-8866-096a25f064ae",
+  "homeTeam" : "Inter de Milan",
+  "awayTeam" : "Real Madrid",
+  "startTime" : "2020-03-01 00:00:00",
+  "endTime" : "2020-03-01 02:00:00",
+  "status" : "RUNNING",
+  "score" : {
+    "id" : "655cb87f-8572-4b72-b14d-8e113b69441c",
+    "scoreHomeTeam" : 0,
+    "scoreAwayTeam" : 0
+  }
+}
