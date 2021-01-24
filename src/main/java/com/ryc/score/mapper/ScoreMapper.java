@@ -14,12 +14,12 @@ public class ScoreMapper {
         this.modelMapper = modelMapper;
     }
 
-    private Score entityToModel(ScoreEntity scoreEntity){
+    public Score entityToModel(ScoreEntity scoreEntity){
         Score score = modelMapper.map(scoreEntity, Score.class);
         return score;
     }
 
-    private ScoreEntity modelToEntity(Score score){
+    public ScoreEntity modelToEntity(Score score){
         ScoreEntity scoreEntity = modelMapper.map(score, ScoreEntity.class);
         return scoreEntity;
     }

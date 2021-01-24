@@ -1,10 +1,14 @@
 package com.ryc.score.service.impl;
 
+import com.ryc.score.entity.MatchEntity;
+import com.ryc.score.entity.ScoreEntity;
 import com.ryc.score.mapper.ScoreMapper;
 import com.ryc.score.model.Score;
 import com.ryc.score.repository.MatchRepository;
 import com.ryc.score.repository.ScoreRepository;
 import com.ryc.score.service.iface.ScoreService;
+
+import java.util.UUID;
 
 public class ScoreServiceImpl implements ScoreService {
 
@@ -20,6 +24,11 @@ public class ScoreServiceImpl implements ScoreService {
 
     @Override
     public Score updateScore(String matchId, Score scoreToUpdate) {
-        return null;
+        MatchEntity matchEntityFound = matchRepository.getOne(UUID.fromString(matchId));
+        ScoreEntity scoreEntityFound = scoreRepository.getOne(UUID.fromString(scoreToUpdate.getId()));
+        ScoreEntity scoreEntityToUpdate = scoreMapper.modelToEntity(scoreToUpdate);
+        ScoreEntity scoreEntityUpdated = scoreRepository.save(scoreEntityToUpdate);
+        Score scoreUpdated = scoreMapper.entityToModel(scoreEntityUpdated);
+        return scoreUpdated;
     }
 }
