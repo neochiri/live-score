@@ -19,6 +19,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -62,5 +63,15 @@ public class ScoreServiceTests {
         assertEquals(score.getId(), scoreToUpdate.getId());
         assertEquals(score.getScoreHomeTeam(), 1);
         assertEquals(score.getScoreAwayTeam(), 0);
+    }
+
+    @Test
+    public void testUpdateScoreMatchNotExisting(){
+        String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
+        Score scoreToUpdate = (Score) UtilsTest.getObjectFromJsonFile(SCORE_MODEL_JSON, Score.class);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> scoreService.updateScore(matchId, scoreToUpdate));
+
+        assertEquals(exception.getMessage(), "The match does not exist");
     }
 }
