@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -54,5 +55,16 @@ public class MatchServiceTests {
 
         assertEquals(match.getId(), matchId);
         assertEquals(match.getStatus(), MatchStatus.valueOf(matchStatus));
+    }
+
+    @Test
+    public void testStartMatchNotExisting(){
+        String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
+        String matchStatus = "RUNNING";
+        when(matchRepository.getOne(Mockito.any(UUID.class))).thenReturn(null);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> matchService.updateStatusMatch(matchId, matchStatus));
+
+        assertEquals(exception.getMessage(), "The match does not exist");
     }
 }
