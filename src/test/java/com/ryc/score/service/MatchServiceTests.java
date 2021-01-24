@@ -46,7 +46,7 @@ public class MatchServiceTests {
     }
 
     @Test
-    public void testStartMatchOK(){
+    public void testUpdateMatchStatusOK(){
         String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
         String matchStatus = "RUNNING";
         MatchEntity matchEntityFound = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
@@ -65,7 +65,7 @@ public class MatchServiceTests {
     }
 
     @Test
-    public void testStartMatchNotExisting(){
+    public void testUpdateMatchStatusNotExisting(){
         String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
         String matchStatus = "RUNNING";
         when(matchRepository.getOne(Mockito.any(UUID.class))).thenReturn(null);
@@ -73,6 +73,19 @@ public class MatchServiceTests {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> matchService.updateStatusMatch(matchId, matchStatus));
 
         assertEquals(exception.getMessage(), "The match does not exist");
+    }
+
+    @Test
+    public void testUpdateMatchStatusWrongStatus(){
+        String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
+        String matchStatus = "test";
+        MatchEntity matchEntityFound = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
+
+        when(matchRepository.getOne(Mockito.any(UUID.class))).thenReturn(matchEntityFound);
+
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> matchService.updateStatusMatch(matchId, matchStatus));
+
+        assertEquals(exception.getMessage(), "The status is not correct");
     }
 
     @Test
