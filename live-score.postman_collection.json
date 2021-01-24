@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "5811cdce-f82d-4069-aa99-1824496704fc",
+		"name": "live-score",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get All Matches",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v01/match",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v01",
+						"match"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Finish match",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v01/match/2d1ebc5b-7d27-4197-9cf0-e84451c5bbb2/FINISHED",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v01",
+						"match",
+						"2d1ebc5b-7d27-4197-9cf0-e84451c5bbb2",
+						"FINISHED"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Start Match",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/v01/match/2d1ebc5b-7d27-4197-9cf0-e84451c5bbb2/RUNNING",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v01",
+						"match",
+						"2d1ebc5b-7d27-4197-9cf0-e84451c5bbb2",
+						"RUNNING"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Score",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"c59ec098-e70f-451a-9581-21b4f7dd9610\",\n    \"scoreHomeTeam\": 5,\n    \"scoreAwayTeam\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/v01/match/2d1ebc5b-7d27-4197-9cf0-e84451c5bbb2/score",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"v01",
+						"match",
+						"2d1ebc5b-7d27-4197-9cf0-e84451c5bbb2",
+						"score"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
