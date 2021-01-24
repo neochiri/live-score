@@ -1,4 +1,4 @@
-package com.ryc.score;
+package com.ryc.score.controller;
 
 import com.ryc.score.model.Match;
 import com.ryc.score.model.Score;

@@ -36,6 +36,8 @@ public class ScoreServiceImpl implements ScoreService {
             throw new RuntimeException("The score does not exist");
         }
         ScoreEntity scoreEntityToUpdate = scoreMapper.modelToEntity(scoreToUpdate);
+        scoreEntityToUpdate.setId(UUID.fromString(scoreToUpdate.getId()));
+        scoreEntityToUpdate.setMatch(matchEntityFound);
         ScoreEntity scoreEntityUpdated = scoreRepository.save(scoreEntityToUpdate);
         Score scoreUpdated = scoreMapper.entityToModel(scoreEntityUpdated);
         return scoreUpdated;

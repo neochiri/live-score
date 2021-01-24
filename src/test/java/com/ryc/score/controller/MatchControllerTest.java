@@ -1,6 +1,5 @@
 package com.ryc.score.controller;
 
-import com.ryc.score.MatchController;
 import com.ryc.score.model.Match;
 import com.ryc.score.model.Score;
 import com.ryc.score.service.iface.MatchService;
@@ -11,7 +10,6 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.web.client.match.MockRestRequestMatchers;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;

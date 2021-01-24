@@ -1,5 +1,12 @@
-INSERT INTO match (home_team, away_team, status, start_time, end_time, created_date)
-VALUES  ('R.Madrid', 'Betis', 'NOT_STARTED', CURRENT_TIMESTAMP() , CURRENT_TIMESTAMP() + 1, CURRENT_TIMESTAMP() - 5),
-        ('Atletico', 'Toledo', 'NOT_STARTED', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP() + 1, CURRENT_TIMESTAMP() - 1),
-        ('Barcelona', 'Granada', 'NOT_STARTED', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP() + 1, CURRENT_TIMESTAMP() - 3),
-        ('Deportivo', 'Celta', 'NOT_STARTED', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP() + 1, CURRENT_TIMESTAMP() - 10);
+INSERT INTO match (id,home_team, away_team, status, start_time, end_time, created_date)
+VALUES  ('2D1EBC5B7D2741979CF0E84451C5BBB1', 'R.Madrid', 'Betis', 'NOT_STARTED', CURRENT_TIMESTAMP() , CURRENT_TIMESTAMP() + 1, CURRENT_TIMESTAMP() - 5),
+        ('2D1EBC5B7D2741979CF0E84451C5BBB2', 'Atletico', 'Toledo', 'NOT_STARTED', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP() + 1, CURRENT_TIMESTAMP() - 1),
+        ('2D1EBC5B7D2741979CF0E84451C5BBB3', 'Barcelona', 'Granada', 'NOT_STARTED', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP() + 1, CURRENT_TIMESTAMP() - 3),
+        ('2D1EBC5B7D2741979CF0E84451C5BBB4', 'Deportivo', 'Celta', 'NOT_STARTED', CURRENT_TIMESTAMP(), CURRENT_TIMESTAMP() + 1, CURRENT_TIMESTAMP() - 10);
+
+INSERT INTO match_score (id, score_home_team, score_away_team, match_id)
+VALUES (random_uuid(), 1, 0, '2D1EBC5B7D2741979CF0E84451C5BBB1'),
+       (random_uuid(), 0, 0, '2D1EBC5B7D2741979CF0E84451C5BBB2'),
+       (random_uuid(), 3, 0, '2D1EBC5B7D2741979CF0E84451C5BBB3'),
+       (random_uuid(), 1, 5, '2D1EBC5B7D2741979CF0E84451C5BBB4');
+
