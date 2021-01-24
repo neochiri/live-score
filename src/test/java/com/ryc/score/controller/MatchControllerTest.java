@@ -2,6 +2,7 @@ package com.ryc.score.controller;
 
 import com.ryc.score.MatchController;
 import com.ryc.score.model.Match;
+import com.ryc.score.model.Score;
 import com.ryc.score.service.iface.MatchService;
 import com.ryc.score.service.iface.ScoreService;
 import com.ryc.score.utils.UtilsTest;
@@ -27,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MatchControllerTest {
 
     private final String MATCH_MODEL_JSON = "match-model.json";
+    private final String SCORE_MODEL_JSON = "score-model.json";
 
     @Autowired
     private MockMvc mockMvc;
@@ -48,6 +50,16 @@ public class MatchControllerTest {
         given(matchService.updateStatusMatch(Mockito.anyString(), Mockito.anyString())).willReturn(matchUpdated);
 
         this.mockMvc.perform(patch("/v01/match/95b590b0-8b2e-4552-8866-096a25f064ae/FINISHED"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUpdateScore() throws Exception {
+        Score scoreToUpdate = (Score) UtilsTest.getObjectFromJsonFile(SCORE_MODEL_JSON, Score.class);
+        given(scoreService.updateScore(Mockito.anyString(), Mockito.any(Score.class))).willReturn(scoreToUpdate);
+
+        this.mockMvc.perform(patch("/v01/match/95b590b0-8b2e-4552-8866-096a25f064ae/score")
+                .content(UtilsTest.getJsonFromObject(scoreToUpdate)))
                 .andExpect(status().isOk());
     }
 }

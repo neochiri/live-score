@@ -30,9 +30,15 @@ public class MatchController {
         return new ResponseEntity<>(matches, new HttpHeaders(), HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/{matchId}/{matchStatus}")
+    @PatchMapping(value = "/{matchId}/{matchStatus}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Match> updateStatusMatch(@PathVariable String matchId, @PathVariable String matchStatus){
         Match match = matchService.updateStatusMatch(matchId, matchStatus);
         return new ResponseEntity<>(match, new HttpHeaders(), HttpStatus.OK);
+    }
+
+    @PatchMapping(value = "/{matchId}/score")
+    public ResponseEntity<Score> updateScore(@PathVariable String matchId, @RequestBody Score score){
+        Score scoreUpdated = scoreService.updateScore(matchId, score);
+        return new ResponseEntity<>(scoreUpdated, new HttpHeaders(), HttpStatus.OK);
     }
 }

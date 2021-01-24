@@ -1,5 +1,6 @@
 package com.ryc.score.utils;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
@@ -17,5 +18,10 @@ public class UtilsTest {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static String getJsonFromObject(Object object) throws JsonProcessingException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(object);
     }
 }
