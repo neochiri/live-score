@@ -89,29 +89,6 @@ public class MatchServiceTests {
     }
 
     @Test
-    public void finishMatchOK(){
-        String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
-        MatchEntity matchEntityFound = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
-        MatchEntity matchUpdated = matchEntityFound;
-        matchUpdated.setStatus("FINISHED");
-
-        when(matchRepository.getOne(Mockito.any(UUID.class))).thenReturn(matchEntityFound);
-        when(matchRepository.save(Mockito.any(MatchEntity.class))).thenReturn(matchUpdated);
-
-        assertDoesNotThrow(() -> matchService.finishMatch(matchId));
-    }
-
-    @Test
-    public void finishMatchNotExisting(){
-        String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
-        when(matchRepository.getOne(Mockito.any(UUID.class))).thenReturn(null);
-
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> matchService.finishMatch(matchId));
-
-        assertEquals(exception.getMessage(), "The match does not exist");
-    }
-
-    @Test
     public void getAllMatchesOK() throws ParseException {
         List<MatchEntity> matchEntities = new ArrayList<>();
         MatchEntity matchEntity1 = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);

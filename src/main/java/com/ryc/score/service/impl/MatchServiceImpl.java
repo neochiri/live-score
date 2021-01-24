@@ -39,14 +39,6 @@ public class MatchServiceImpl implements MatchService {
     }
 
     @Override
-    public void finishMatch(String matchId) {
-        MatchEntity matchEntityFound = matchRepository.getOne(UUID.fromString(matchId));
-        checkExistingMatch(matchEntityFound);
-        matchEntityFound.setStatus("FINISHED");
-        matchRepository.save(matchEntityFound);
-    }
-
-    @Override
     public List<Match> getAllMatches() {
         List<MatchEntity> matchEntities = matchRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
         List<Match> matches = matchEntities.stream().map(matchEntity -> matchMapper.entityToModel(matchEntity)).collect(Collectors.toList());
