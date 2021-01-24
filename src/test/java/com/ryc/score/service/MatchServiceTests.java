@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest
@@ -70,6 +71,12 @@ public class MatchServiceTests {
     @Test
     public void finishMatchOK(){
         String matchId = "95b590b0-8b2e-4552-8866-096a25f064ae";
+        MatchEntity matchEntityFound = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
+        MatchEntity matchUpdated = matchEntityFound;
+        matchUpdated.setStatus("FINISHED");
+
+        when(matchRepository.getOne(Mockito.any(UUID.class))).thenReturn(matchEntityFound);
+        when(matchRepository.save(Mockito.any(MatchEntity.class))).thenReturn(matchUpdated);
 
         assertDoesNotThrow(() -> matchService.finishMatch(matchId));
     }

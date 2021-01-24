@@ -36,6 +36,8 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public void finishMatch(String matchId) {
-
+        MatchEntity matchEntityFound = matchRepository.getOne(UUID.fromString(matchId));
+        matchEntityFound.setStatus("FINISHED");
+        matchRepository.save(matchEntityFound);
     }
 }
