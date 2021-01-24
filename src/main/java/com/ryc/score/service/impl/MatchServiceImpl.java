@@ -40,7 +40,7 @@ public class MatchServiceImpl implements MatchService {
 
     @Override
     public List<Match> getAllMatches() {
-        List<MatchEntity> matchEntities = matchRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
+        List<MatchEntity> matchEntities = matchRepository.findAll(Sort.by(Sort.Direction.ASC, "createdDate"));
         List<Match> matches = matchEntities.stream().map(matchEntity -> matchMapper.entityToModel(matchEntity)).collect(Collectors.toList());
         return matches;
     }
