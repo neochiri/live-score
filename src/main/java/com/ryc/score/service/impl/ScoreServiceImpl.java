@@ -8,6 +8,7 @@ import com.ryc.score.repository.MatchRepository;
 import com.ryc.score.repository.ScoreRepository;
 import com.ryc.score.service.iface.ScoreService;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class ScoreServiceImpl implements ScoreService {
@@ -25,6 +26,9 @@ public class ScoreServiceImpl implements ScoreService {
     @Override
     public Score updateScore(String matchId, Score scoreToUpdate) {
         MatchEntity matchEntityFound = matchRepository.getOne(UUID.fromString(matchId));
+        if(Objects.isNull(matchEntityFound)){
+            throw new RuntimeException("The match does not exist");
+        }
         ScoreEntity scoreEntityFound = scoreRepository.getOne(UUID.fromString(scoreToUpdate.getId()));
         ScoreEntity scoreEntityToUpdate = scoreMapper.modelToEntity(scoreToUpdate);
         ScoreEntity scoreEntityUpdated = scoreRepository.save(scoreEntityToUpdate);
