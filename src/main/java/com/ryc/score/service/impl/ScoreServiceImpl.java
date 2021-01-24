@@ -7,10 +7,12 @@ import com.ryc.score.model.Score;
 import com.ryc.score.repository.MatchRepository;
 import com.ryc.score.repository.ScoreRepository;
 import com.ryc.score.service.iface.ScoreService;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.UUID;
 
+@Service
 public class ScoreServiceImpl implements ScoreService {
 
     private final ScoreRepository scoreRepository;
