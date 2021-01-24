@@ -26,4 +26,6 @@ public class MatchEntity {
     private Timestamp endTime;
     @OneToOne(mappedBy = "match")
     private ScoreEntity score;
+    @JsonFormat(shape= JsonFormat.Shape.STRING, pattern="yyyy-MM-dd HH:mm:ss")
+    private Timestamp createdDate;
 }

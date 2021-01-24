@@ -6,10 +6,13 @@ import com.ryc.score.model.Match;
 import com.ryc.score.model.MatchStatus;
 import com.ryc.score.repository.MatchRepository;
 import com.ryc.score.service.iface.MatchService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 public class MatchServiceImpl implements MatchService {
@@ -38,6 +41,13 @@ public class MatchServiceImpl implements MatchService {
         checkExistingMatch(matchEntityFound);
         matchEntityFound.setStatus("FINISHED");
         matchRepository.save(matchEntityFound);
+    }
+
+    @Override
+    public List<Match> getAllMatches() {
+        List<MatchEntity> matchEntities = matchRepository.findAll(Sort.by(Sort.Direction.DESC, "createdDate"));
+        List<Match> matches = matchEntities.stream().map(matchEntity -> matchMapper.entityToModel(matchEntity)).collect(Collectors.toList());
+        return matches;
     }
 
     private void checkExistingMatch(MatchEntity matchEntityFound){

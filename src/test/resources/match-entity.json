@@ -5,6 +5,7 @@
   "startTime" : "2020-03-01 00:00:00",
   "endTime" : "2020-03-01 02:00:00",
   "status" : "RUNNING",
+  "createdDate" : "2019-03-01 02:00:00",
   "score" : {
     "id" : "655cb87f-8572-4b72-b14d-8e113b69441c",
     "scoreHomeTeam" : 0,

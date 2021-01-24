@@ -5,6 +5,7 @@ import com.ryc.score.mapper.MatchMapper;
 import com.ryc.score.model.Match;
 import com.ryc.score.model.MatchStatus;
 import com.ryc.score.repository.MatchRepository;
+import com.ryc.score.service.iface.MatchService;
 import com.ryc.score.service.impl.MatchServiceImpl;
 import com.ryc.score.utils.UtilsTest;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,14 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -88,5 +96,33 @@ public class MatchServiceTests {
         RuntimeException exception = assertThrows(RuntimeException.class, () -> matchService.finishMatch(matchId));
 
         assertEquals(exception.getMessage(), "The match does not exist");
+    }
+
+    @Test
+    public void getAllMatchesOK() throws ParseException {
+        List<MatchEntity> matchEntities = new ArrayList<>();
+        MatchEntity matchEntity1 = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
+        matchEntity1.setId(UUID.randomUUID());
+        matchEntity1.setCreatedDate(new Timestamp(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2000-01-01 00:00:00").getTime()));
+
+        MatchEntity matchEntity2 = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
+        matchEntity2.setId(UUID.randomUUID());
+
+        MatchEntity matchEntity3 = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
+        matchEntity3.setId(UUID.randomUUID());
+
+        MatchEntity matchEntity4 = (MatchEntity) UtilsTest.getObjectFromJsonFile(MATCH_ENTITY_JSON, MatchEntity.class);
+        matchEntity4.setId(UUID.randomUUID());
+
+        matchEntities.add(matchEntity1);
+        matchEntities.add(matchEntity2);
+        matchEntities.add(matchEntity3);
+        matchEntities.add(matchEntity4);
+
+        when(matchRepository.findAll(Mockito.any(Sort.class))).thenReturn(matchEntities);
+
+        List<Match> matches = matchService.getAllMatches();
+
+        assertEquals(matches.size(), 4);
     }
 }
