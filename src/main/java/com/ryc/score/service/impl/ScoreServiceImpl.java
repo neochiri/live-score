@@ -3,6 +3,7 @@ package com.ryc.score.service.impl;
 import com.ryc.score.entity.MatchEntity;
 import com.ryc.score.entity.ScoreEntity;
 import com.ryc.score.mapper.ScoreMapper;
+import com.ryc.score.model.MatchStatus;
 import com.ryc.score.model.Score;
 import com.ryc.score.repository.MatchRepository;
 import com.ryc.score.repository.ScoreRepository;
@@ -34,6 +35,9 @@ public class ScoreServiceImpl implements ScoreService {
         ScoreEntity scoreEntityFound = scoreRepository.getOne(UUID.fromString(scoreToUpdate.getId()));
         if(Objects.isNull(scoreEntityFound)){
             throw new RuntimeException("The score does not exist");
+        }
+        if(!matchEntityFound.getStatus().equals(MatchStatus.RUNNING)){
+            throw new RuntimeException("The match has not started");
         }
         ScoreEntity scoreEntityToUpdate = scoreMapper.modelToEntity(scoreToUpdate);
         scoreEntityToUpdate.setId(UUID.fromString(scoreToUpdate.getId()));
